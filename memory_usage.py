@@ -34,7 +34,7 @@ with open(csv_fullpath, 'r', encoding='utf-8-sig') as csv_file:
         port = 22
         hostname = ip
 
-        script = "df -h | head"
+        script = "free -m"
 
         try:
             out_result = mem_utility(ip, username, password, script)
