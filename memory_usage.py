@@ -5,7 +5,7 @@ import csv
 import sys
 from configparser import ConfigParser
 
-username = sys.argv[1]b   
+username = sys.argv[1]   
 password = sys.argv[2]
 csvpath = sys.argv[3]
 reportpath = sys.argv[4]
