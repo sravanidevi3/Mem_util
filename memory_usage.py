@@ -40,7 +40,7 @@ with open(csv_fullpath, 'r', encoding='utf-8-sig') as csv_file:
             out_result = mem_utility(ip, username, password, script)
 
             # Extract relevant information from the output
-            disk_util = out_result[1].strip()
+            disk_util = out_result[].strip()
 
             results.append([ip, disk_util])
 
