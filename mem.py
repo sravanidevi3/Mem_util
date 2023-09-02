@@ -29,7 +29,7 @@ for row in csv_reader:
 
     try:
         out_results = mem_util([ip , username , password , script])
-        mem_util = out_results[].strip()
+        mem_util = out_results[1].strip()
         results.append([ip,mem_util])
 
     except Exception as e:
