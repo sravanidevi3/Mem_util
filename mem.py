@@ -38,8 +38,8 @@ for row in csv_reader:
 
 with open(report_path , 'w' , newline = '' , encoding = 'utf-8-sig') as report_file:
     csv_writer = csv.writer(report_file)
-    csv_writer.row(['IP' , 'Mem_util'])
-    csv_writer.row(results)
+    csv_writer.writerow(['IP' , 'Mem_util'])
+    csv_writer.writerow(results)
 
 def mem_util(ip:str , username:str , password:str , script:str):
     #Establish SSH Connection
