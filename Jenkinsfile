@@ -10,7 +10,7 @@ pipeline {
                     // Define the Python command to run your script
                     //def pythonCmd = 'python3 mem.py ${username} ${password} ${csvpath} ${reportpath}'
                    // def pythonCmd = 'python3 memory_usage.py ${username} ${password} ${csvpath} ${reportpath}'
-                    def pythonCmd = 'python3 memory_usage.py ${username} ${password} ${csvpath} ${reportpath}'
+                    def pythonCmd = 'python3 balacode.py ${username} ${password} ${csvpath} ${reportpath}'
                     
                     // Run the Python script
                     sh returnStatus: true, script: pythonCmd
