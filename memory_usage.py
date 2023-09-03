@@ -38,7 +38,7 @@ with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
             results.append([ip , mem_util])
 
         except Exception as e:
-            print("An error occured for{ip} as {e}")
+            print(f"An error occured for{ip}: as {e}")
 
 with open(report_path , 'w', newline = '' ,encoding="utf-8-sig")as report_file:
     csv_writer=csv.writer(report_file)
