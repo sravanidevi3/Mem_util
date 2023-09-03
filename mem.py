@@ -36,7 +36,7 @@ with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
         try:
             out_result = mem_util(ip , username , password , script)
             mem_util = results[2].strip()
-            results.append(ip , mem_util)
+            results.append([ip , mem_util])
         except Exception as e:
             print ("an errro occurred while authenticates as {e}")
 
