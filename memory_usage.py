@@ -33,7 +33,7 @@ with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
         script = "free -m"
 
         try:
-            out_results=mem_util([ip,username,password,script])
+            out_results=mem_util([ip , username , password , script])
             mem_util=out_results[1].strip()
             results.append([ip , mem_util])
 
