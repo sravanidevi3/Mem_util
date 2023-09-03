@@ -12,7 +12,7 @@ reportpath = sys.argv[4]
 csv_path = os.path.join(csvpath,"servers.csv")
 report_path = os.path.join(reportpath,"Healthcheck.csv")
 
-def mem_util(ip:str , username:str , password:str , sccript:str)
+def mem_util(ip:str , username:str , password:str , script:str)
     print("Attempting ssh connection")
     #Establish ssh connection
     client=paramiko.SSHClient()
