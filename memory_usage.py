@@ -27,7 +27,7 @@ with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
 
     results=[]
     for row in csv_reader:
-        ip = results()
+        ip = row[0]
         port = 22
         hostname = ip
         script = "free -m"
