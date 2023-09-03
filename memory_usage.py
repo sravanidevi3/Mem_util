@@ -36,13 +36,13 @@ with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
         try:
             out_result = mem_util(ip , username , password , script)
             mem_util = results[2].strip()
-            results.append(ip , mem_util)
+            results.append([ip , mem_util])
         except Exception as e:
             print ("an errro occurred while authenticates as {e}")
 
 with open (report_fullpath , 'w', newline= '' , encoding="utf-8-sig") as reportfile:
     csv_writer = csv.writer(reportfile)
-    csv_writer.writerow("ip", "utilization")
+    csv_writer.writerow(["ip", "utilization"])
     csv_writer.writerows(results)
 
 
