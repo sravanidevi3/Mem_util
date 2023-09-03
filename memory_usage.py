@@ -20,7 +20,7 @@ def mem_utility(ip: str , username: str, password: str, script: str):
     client.connect(hostname=ip , username=username , password=password)
     
     stdin,stdout,stderr=client.exec_command(script)
-    return stderr.readlines()
+    return stdout.readlines()
 
 with open(csv_path , 'r' , encoding="utf-8-sig") as csv_file:
     csv_reader = csv.reader(csv_file , delimiter=',')
@@ -45,8 +45,8 @@ with open(csv_path , 'r' , encoding="utf-8-sig") as csv_file:
 
 with open(report_path , 'w' , newline = '' ,encoding = 'utf-8-sig') as report_file:
     csv_writer = csv.writer(report_file)
-    csv_writer.writerows(results)
     csv_writer.writerow(["IP" , "MEM_UTILITY"])
+    csv_writer.writerows(results)
 
 print("Healthcheck is saved in healthcheck.csv")
 
