@@ -2,6 +2,7 @@ import paramiko
 import csv
 import os
 import sys
+import traceback
 
 username = sys.argv[1]
 password = sys.argv[2]
@@ -11,11 +12,11 @@ reportpath = sys.argv[4]
 csv_fullpath = os.path.join(csvpath , "servers.csv")
 report_fullpath = os.path.join(reportpath , "Helathcheck.csv")
 
-def mem_utility(ip , username, password, script):
-    #establish a connection\
+def mem_utility(ip, username, password, script):
+    #establish a connection
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(hostname= ip , username= username, password= password)
+    client.connect(hostname= ip, username= username, password= password)
 
     stdin,stderr,stdout = client.exec_command(script)
 
