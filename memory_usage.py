@@ -42,9 +42,9 @@ with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
 
 with open(report_path , 'w', newline = '' ,encoding="utf-8-sig")as report_file:
     csv_writer=csv.writer(report_file)
-    csv_writer.writerow(results)
-    csv_writer.writerows(["IP","Mem_util"])
+    csv_writer.writerows(results)
+    csv_writer.writerow(["IP","Mem_util"])
 
-print("Healthcheck is ssaved in Healthcheck.csv")
+print("Healthcheck is saved in Healthcheck.csv")
 
 
