@@ -40,6 +40,7 @@ with open(csv_fullpath ,'r', encoding='utf-8-sig') as csv_file:
             out_result = mem_utility(hostname , username, password, script)
             disc_util = out_result[1].strip()
             results.append([ip , disc_util])
+            print(f" {ip} is connected")
 
         except Exception as e:
             print(f"This the exception occurred on {ip} as {e} ")
