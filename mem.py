@@ -42,7 +42,7 @@ with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
 
 with open (report_fullpath , 'w', newline= '' , encoding="utf-8-sig") as reportfile:
     csv_writer = csv.writer(reportfile)
-    csv_writer.writerow("ip", "utilization")
+    csv_writer.writerow(["ip", "utilization"])
     csv_writer.writerows(results)
 
 
