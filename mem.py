@@ -1,30 +1,32 @@
 import os
-import csv
 import paramiko
 import traceback
+import csv
 import sys
+from configparser import ConfigParser
 
-username = sys.argv[1]
+username = sys.argv[1]  
 password = sys.argv[2]
 csvpath = sys.argv[3]
 reportpath = sys.argv[4]
 
-csv_fullpath = os.path.join(csvpath , "servers.csv")
-report_fullpath = os.path.join(reportpath , "reportfull.csv")
+csv_fullpath = os.path.join(csvpath, "servers.csv")
+report_fullpath = os.path.join(reportpath, "Healthcheck.csv")
 
-def mem_util(ip , username , password , script):
-    #Establishing connection.
+def mem_utility(ip: str, username: str, password: str, script: str):
+    # Establish SSH connection
+    print(f"Attempting SSH Connection to {ip}")
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(hostname = ip , username = username , password = password)
+    client.connect(hostname=ip, username=username, password=password)
 
-    stdin,stdout,stderr = client.exec_command(script)
-
+    stdin, stdout, stderr = client.exec_command(script)
     return stdout.readlines()
 
-with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
-    csv_reader = csv.reader(csv_file , delimiter=',')
+with open(csv_fullpath, 'r', encoding='utf-8-sig') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
 
+    # Create a list to store the results
     results = []
 
     for row in csv_reader:
@@ -32,18 +34,23 @@ with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
         port = 22
         hostname = ip
 
-        script = "df -h"
-        try:
-            out_result = mem_util(ip , username , password , script)
-            mem_util = results[2].strip()
-            results.append([ip , mem_util])
-        except Exception as e:
-            print ("an errro occurred while authenticates as {e}")
+        script = "df -h | head"
 
-with open (report_fullpath , 'w', newline= '' , encoding="utf-8-sig") as reportfile:
-    csv_writer = csv.writer(reportfile)
-    csv_writer.writerow(["ip", "utilization"])
+        try:
+            out_result = mem_utility(ip, username, password, script)
+
+            # Extract relevant information from the output
+            disk_util = out_result[1].strip()
+
+            results.append([ip, disk_util])
+
+        except Exception as e:
+            print(f"An error occurred for {ip}: {e}")
+
+# Write the results to the output CSV file
+with open(report_fullpath, 'w', newline='', encoding='utf-8-sig') as report_file:
+    csv_writer = csv.writer(report_file)
+    csv_writer.writerow(['IP', 'Disk Utilization'])
     csv_writer.writerows(results)
 
-
-print("health check is created")
+print("Healthcheck completed and results saved in Healthcheck.csv")
