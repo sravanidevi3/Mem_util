@@ -19,7 +19,7 @@ def mem_utilty(ip: str , username: str , password: str , script: str):
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(hostname=ip , username=username , password=password)
 
-    stdin,stdout,stderr=client.exec_command("script")
+    stdin,stdout,stderr=client.exec_command(script)
     return stdout.readlines()
 
 with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
