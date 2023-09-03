@@ -14,7 +14,7 @@ report_fullpath = os.path.join(reportpath , "Helathcheck.csv")
 def mem_utility(ip , username, password, script):
     #establish a connection\
     client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(hostname= ip , username= username, password= password)
 
     stdin,stderr,stdout = client.exec_command(script)
