@@ -23,7 +23,7 @@ def mem_util(ip: str , username: str , password: str , script: str):
     return stdout.readlines()
 
 with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
-    csv_reader = csv.reader(csv_file , delimiter='')
+    csv_reader = csv.reader(csv_file , delimiter=',')
 
     results=[]
     for row in csv_reader:
