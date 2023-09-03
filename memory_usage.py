@@ -37,7 +37,7 @@ with open(csv_fullpath, 'r', encoding='utf-8-sig') as csv_file:
         script = "free -m"
 
         try:
-            out_result = mem_utility(ip, username, password, script)
+            out_result = mem_utility([ip, username, password, script])
 
             # Extract relevant information from the output
             disk_util = out_result[].strip()
