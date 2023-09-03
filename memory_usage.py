@@ -9,7 +9,7 @@ password = sys.argv[2]
 csvpath = sys.argv[3]
 reportpath = sys.argv[4]
 
-csv_fullpath = os.path.join(csvpath , "server.csv")
+csv_fullpath = os.path.join(csvpath , "servers.csv")
 report_fullpath = os.path.join(reportpath , "reportfull.csv")
 
 def mem_util(ip , username , password , script):
