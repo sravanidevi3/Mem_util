@@ -12,7 +12,7 @@ reportpath = sys.argv[4]
 csv_path = os.path.join(csvpath,"servers.csv")
 report_path = os.path.join(reportpath,"Healthcheck.csv")
 
-def mem_util(ip: str , username: str , password: str , script: str):
+def mem_utilty(ip: str , username: str , password: str , script: str):
     print("Attempting ssh connection")
     #Establish ssh connection
     client=paramiko.SSHClient()
@@ -33,8 +33,8 @@ with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
         script = "free -m"
 
         try:
-            out_results=mem_util(ip , username , password , script)
-            mem_util=out_results[1].strip()
+            out_results = mem_utilty(ip , username , password , script)
+            mem_util = out_results[1].strip()
             results.append([ip , mem_util])
 
         except Exception as e:
