@@ -37,7 +37,7 @@ with open(csv_path , 'r' , encoding="utf-8-sig") as csv_file:
         try:
             out_results = mem_utility(ip , username , password , script)
             mem_util = out_results[1].strip()
-            results.append([ip,mem_utility])
+            results.append([ip,mem_util])
 
         except Exception as e:
             print(f"An error has occured as {e}") 
