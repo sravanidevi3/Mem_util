@@ -18,7 +18,7 @@ def mem_utility(ip, username, password, script):
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(hostname= ip, username= username, password= password)
 
-    stdin,stderr,stdout = client.exec_command(script)
+    stdin,stdout,stderr = client.exec_command(script)
 
     return stdout.readlines()
 
