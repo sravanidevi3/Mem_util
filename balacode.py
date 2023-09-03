@@ -44,7 +44,7 @@ with open(csv_fullpath ,'r', encoding='utf-8-sig') as csv_file:
             print(f"This the exception occurred on {ip} as {e} ")
     
 with open(report_fullpath , 'w' , newline= '', encoding='utf-8-sig') as report_file:
-    csv_writer = csv.writer(report_file, delimiter='')
+    csv_writer = csv.writer(report_file)
     csv_writer.writerow(["ip" ,"utilization"])
     csv_writer.writerows(results)
 
