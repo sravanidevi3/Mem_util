@@ -38,8 +38,7 @@ with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
             mem_util = out_result[2].strip()
             results.append([ip , mem_util])
         except Exception as e:
-            print ("an errro occurred while authenticates as {e}")
-
+            print(f"An error occurred for {ip}: {e}")
 with open (report_fullpath , 'w', newline= '' , encoding="utf-8-sig") as reportfile:
     csv_writer = csv.writer(reportfile)
     csv_writer.writerow(["ip", "utilization"])
