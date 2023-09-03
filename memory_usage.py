@@ -1,48 +1,50 @@
+import sys
 import os
 import csv
 import paramiko
 import traceback
-import sys
 
 username = sys.argv[1]
 password = sys.argv[2]
 csvpath = sys.argv[3]
 reportpath = sys.argv[4]
 
-csv_fullpath = os.path.join(csvpath , "servers.csv")
-report_fullpath = os.path.join(reportpath , "reportfull.csv")
+csv_path = os.path.join(csvpath,"servers.csv")
+report_path = os.path.join(reportpath,"Healthcheck.csv")
 
-def mem_util(ip , username , password , script):
-    #Establishing connection.
-    client = paramiko.SSHClient()
+def mem_util(ip:str , username:str , password:str , sccript:str)
+    print("Attempting ssh connection")
+    #Establish ssh connection
+    client=paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(hostname = ip , username = username , password = password)
+    client.connect(hostname=ip , username=username , password=password)
 
-    stdin,stdout,stderr = client.exec_command(script)
-
+    stdin,stdout,stderr=client.exec_command("script")
     return stdout.readlines()
 
-with open(csv_fullpath , 'r' , encoding= "utf-8-sig") as csv_file:
-    csv_reader = csv.reader(csv_file , delimiter=',')
+with open(csv_path , 'r' , encoding="utf-8-sig")as csv_file:
+    csv_reader = csv.reader(csv_file , delimiter='')
 
-    results = []
-
+    results=[]
     for row in csv_reader:
-        ip = row[0]
+        ip = results()
         port = 22
         hostname = ip
+        script = "free -m"
 
-        script = "df -h"
         try:
-            out_result = mem_util(ip , username , password , script)
-            mem_util = out_result[2].strip()
+            out_results=mem_util([ip,username,password,script])
+            mem_util=out_results[1].strip()
             results.append([ip , mem_util])
+
         except Exception as e:
-            print(f"An error occurred for {ip}: {e}")
-with open (report_fullpath , 'w', newline= '' , encoding="utf-8-sig") as reportfile:
-    csv_writer = csv.writer(reportfile)
-    csv_writer.writerow(["ip", "utilization"])
-    csv_writer.writerows(results)
+            print("An error occured for{ip} as {e}")
+
+with open(report_path , 'w', newline = '' ,encoding="utf-8-sig")as report_file:
+    csv_writer=csv.writer(report_file)
+    csv_writer.writerow(results)
+    csv_writer.writerows(["IP","Mem_util"])
+
+print("Healthcheck is ssaved in Healthcheck.csv")
 
 
-print("health check is created")
