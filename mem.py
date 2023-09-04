@@ -1,52 +1,47 @@
-import sys
-import os
-import csv
-import paramiko
-import traceback
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email import encoders
 
-username = sys.argv[1]
-password = sys.argv[2]
-csvpath = sys.argv[3]
-reportpath = sys.argv[4]
+def SendEmail(report_file_path):
+    try:
+        SUBJECT = "Memory Utilization Report"
+        text = """
+        Hi,
 
+        Please find attached the Memory Utilization Report:
 
-csv_path = os.path.join(csvpath , "servers.csv")
-report_path = os.path.join(reportpath , "Healthcheck.csv")
+        Thanks,
+        Automation Team
+        """
+        
+        sender_address = "balarcm2010@gmail.com"
+        receiver_address = ['balamuralip93@gmail.com']
 
+        msg = MIMEMultipart()
+        msg['Subject'] = SUBJECT
+        msg['From'] = sender_address
+        msg['To'] = ", ".join(receiver_address)
 
-def mem_util(ip: str, username: str, password: str, script: str):
-    print("Atempting ssh connection for {ip}")
-    #Establish ssh connection
-    client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(hostname=ip , username=username, password=password)
+        part1 = MIMEText(text, "plain")
+        msg.attach(part1)
 
-    stdin,stdout,stderr = client.exec_command(script)
-    return stdout.readlines()
+        part = MIMEBase('application', "octet-stream")
+        part.set_payload(open(report_file_path, "rb").read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f'attachment; filename="{os.path.basename(report_file_path)}"')
+        msg.attach(part)
 
-with open(csv_path , 'r' , encoding='utf-8-sig') as csv_file:
-    csv_reader = csv.reader(csv_file , delimiter = ',')
+        server = smtplib.SMTP("your_smtp_server_here", 25)
+        # Replace "your_smtp_server_here" with your actual SMTP server address
 
+        server.sendmail(sender_address, receiver_address, msg.as_string())
+        server.quit()
+        print("Email Sent Successfully!")
 
-    results = []
-    for row in csv_reader:
-        ip = row[0]
-        port = 22
-        hostname = ip
+    except Exception as e:
+        print(f"Error sending email: {e}")
 
-        script = "free -m"
-
-        try:
-            out_results = mem_util([ip,username,password,script])
-            mem_utility = out_results[1].strip()
-            results.append([ip,mem_utility])
-
-        except Exception as e:
-            print("An error has occured for{ip}: as {e}")
-
-with open(report_path , 'w' , newline='' , encoding='utf-8-sig') as report_file:
-    csv_writer = csv.writer(report_file)
-    csv_writer.writerow(["IP","Mem_utility"])
-    csv_writer.writerows(results)
-
-print("Healthcheck is saved in Healthcheck.csv")
+# Call the SendEmail function with the report_fullpath as an argument
+SendEmail(report_fullpath)
